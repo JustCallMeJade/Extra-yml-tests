@@ -134,4 +134,7 @@ cd build
               make install
               cd /tmp/wine
               rm -rf include
+              cd ..
+              tar -cJf wine
+              
               
