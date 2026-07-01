@@ -1,0 +1,37 @@
+name: Build Wine ARM64EC
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: debian:sid
+
+    timeout-minutes: 180
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make build script executable
+        run: chmod +x Wine-arm64ec.sh
+
+      - name: Run build script
+        run: ./Wine-arm64ec.sh
+
+      - name: Verify artifact
+        run: |
+          ls -lah
+          test -f wine.tar.xz
+
+      - name: Upload Wine
+        uses: actions/upload-artifact@v4
+        with:
+          name: wine-arm64ec
+          path: wine.tar.xz
+          if-no-files-found: error
+          compression-level: 0
