@@ -15,7 +15,6 @@ apt install -y \
   gcc-multilib \
   git \
   locales \
-  language-pack-zh-hans \
   mingw-w64 \
   perl \
   xz-utils \
