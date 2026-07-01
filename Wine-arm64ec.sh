@@ -131,10 +131,11 @@ cd build
               --with-mingw=clang
 
               make -j$(nproc)
-              make install
-              cd /tmp/wine
-              rm -rf include
-              cd ..
-              tar -cJf wine
+make install
+
+rm -rf /tmp/wine-install-proton/include
+
+cd /tmp
+tar -cJf wine.tar.xz wine-install-proton
               
               
