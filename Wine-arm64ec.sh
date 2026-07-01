@@ -90,3 +90,48 @@ find . -type f \( -name "*.c" -o -name "*.h" -o -name "*.in" -o -name "*.spec" \
             find . -name "server.c" -exec sed -i 's|"/tmp"|"/data/data/com.winlator/files/imagefs/usr/tmp"|g' {} +
 
           
+./autogen.sh
+
+mkdir -p build
+cd build 
+
+../configure \
+              --enable-win64 \
+              --enable-archs=aarch64,arm64ec,i386 \
+              --prefix=/tmp/wine-install-proton \
+              --with-x \
+              --with-vulkan \
+              --with-alsa \
+              --with-pulse \
+              --with-freetype \
+              --with-fontconfig \
+              --with-gstreamer \
+              --with-gettext \
+              --with-sdl \
+              --enable-nls \
+              --disable-winemenubuilder \
+              --disable-win16 \
+              --disable-tests \
+              --without-ldap \
+              --without-capi \
+              --without-oss \
+              --without-cups \
+              --without-dbus \
+              --without-coreaudio \
+              --without-gphoto \
+              --without-osmesa \
+              --without-sane \
+              --without-pcap \
+              --without-pcsclite \
+              --without-udev \
+              --without-unwind \
+              --without-usb \
+              --without-v4l2 \
+              --without-wayland \
+              --with-mingw=clang
+
+              make -j$(nproc)
+              make install
+              cd /tmp/wine
+              rm -rf include
+              
