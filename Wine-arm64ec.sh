@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/bin/bash -e
+
+workdir="$(pwd)/wine-workdir"
+
+mkdir -p $workdir
+
+cd $workdir
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -74,7 +80,7 @@ apt install -y \
 
   tar -xf llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz
 
-  export PATH=$(pwd)/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64/bin:$PATH
+  export PATH=$workdir/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64/bin:$PATH
 
 git clone https://github.com/ValveSoftware/wine
 cd wine
@@ -99,7 +105,7 @@ cd build
 ../configure \
               --enable-win64 \
               --enable-archs=aarch64,arm64ec,i386 \
-              --prefix=/tmp/wine-install-proton \
+              --prefix=/tmp/wine \
               --with-x \
               --with-vulkan \
               --with-alsa \
@@ -134,9 +140,7 @@ cd build
               make -j$(nproc)
 make install
 
-rm -rf /tmp/wine-install-proton/include
-
-cd /tmp
-tar -cJf wine.tar.xz wine-install-proton
+cd /tmp/wine
+tar -cJf wine.tar.xz bin lib share include
               
               
