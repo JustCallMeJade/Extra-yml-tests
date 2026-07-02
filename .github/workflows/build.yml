@@ -32,6 +32,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: wine-arm64ec
-          path: tmp/wine
+          path: /tmp/wine
           if-no-files-found: error
           compression-level: 0
